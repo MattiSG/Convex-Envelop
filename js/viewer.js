@@ -91,7 +91,7 @@ var line = this.canvas.display.line({
 		this.canvas.addChild(arc);
 */
 		var context = this.canvas.getContext('2d');
-		context.fillStyle = color || "rgba(0,0,0,1)";
+		context.fillStyle = color || this.randomColor();
 		context.beginPath();
 		context.arc(point.x + 5, window.convlexEnvelop.sizeOfCanvas + 5 - point.y, 2, 0, Math.PI * 2,true);
 		context.closePath();
