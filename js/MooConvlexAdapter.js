@@ -8,13 +8,7 @@ Divider.implement({
 
 window.addEvent('load', function() {
 	var canvas = new window.convlexEnvelop.Viewer($('canvas'));
-	var inputPoints = [
-		{"x": 29, "y":119},
-		{"x": 105, "y":65},
-		{"x": 257, "y":322},
-		{"x": 259, "y":445},
-		{"x": 525, "y":257}
-	];
+	var inputPoints = [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}];
 	
 	var activeRenderers = {};
 	
