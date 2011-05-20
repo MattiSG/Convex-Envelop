@@ -18,7 +18,7 @@ window.addEvent('load', function() {
 		canvas.displayAllPoints(inputPoints);
 		
 		Object.each(activeRenderers, function(renderer) {
-			renderer.setInput(inputPoints.clone());
+			renderer.setInput(inputPoints);
 			canvas.displayPolygon(renderer.envelope(), renderer.color);
 		});
 	}
@@ -79,7 +79,7 @@ window.addEvent('load', function() {
 		button.addEvent('click', function(evt) {
 			if (button.get('active') != 'active') {
 				button.set('active', 'active');
-				var subject = new rendererType(inputPoints.clone());
+				var subject = new rendererType(inputPoints);
 				activeRenderers[name] = subject;
 				
 				updateOutput();
