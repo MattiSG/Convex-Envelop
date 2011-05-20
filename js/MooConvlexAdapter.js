@@ -1,3 +1,11 @@
+var availableRenderers = { // used to generate GUI
+	'Basic': Divider
+}
+
+Divider.implement({
+	color: 'blue'
+});
+
 window.addEvent('load', function() {
 	var canvas = new window.convlexEnvelop.Viewer($('canvas'));
 	var inputPoints = [
@@ -8,10 +16,17 @@ window.addEvent('load', function() {
 		{"x": 525, "y":257}
 	];
 	
+	var activeRenderers = {};
+	
 	function updateOutput() {
 		$("input_json").set('value', JSON.encode(inputPoints));
 		canvas.clear();
 		canvas.displayAllPoints(inputPoints);
+		
+		Object.each(activeRenderers, function(renderer) {
+			renderer.setInput(inputPoints.clone());
+			canvas.displayPolygon(renderer.envelope(), renderer.color);
+		});
 	}
 	
 	updateOutput();
@@ -25,23 +40,20 @@ window.addEvent('load', function() {
 			var data = JSON.parse($("input_json").get('value'));
 		} catch (e) {
 			showColor('red');
+			return false;
 		}
-		
-		if (! data.points) {
-			showColor('orange');
-		} else {
-			showColor('green');
-			inputPoints = data.points;
-			updateOutput();
-		}
+	
+		showColor('green');
+		inputPoints = data;
+		updateOutput();
 	});
 
 	var canvasCoords = $('canvas').getCoordinates();	
 	$('canvas').addEvent('click', function(evt) {
 		var scroll = window.getScroll();
 		var point = {
-			x: evt.client.x - canvasCoords.left - scroll.x,
-			y: canvasCoords.bottom - evt.client.y - scroll.y
+			x: evt.client.x - canvasCoords.left - scroll.x - 6, // - 2 because of the roundings; a bit better
+			y: canvasCoords.bottom - evt.client.y - scroll.y - 5
 		};
 		
 		var shouldPush = true;
@@ -62,8 +74,29 @@ window.addEvent('load', function() {
 		updateOutput();
 	});
 	
-	$('execute_button').addEvent('click', function() {
-		var subject = new Divider(inputPoints);
-		canvas.displayPolygon(subject.envelope());
+	Object.each(availableRenderers, function(rendererType, name) {
+		var button = new Element('button', {
+			text: name,
+			styles: {
+				color: new rendererType([]).color
+			}
+		});
+		
+		button.addEvent('click', function(evt) {
+			if (button.get('active') != 'active') {
+				button.set('active', 'active');
+				var subject = new rendererType(inputPoints.clone());
+				activeRenderers[name] = subject;
+				
+				updateOutput();
+			} else {
+				button.set('active', '');
+				delete activeRenderers[name];
+				
+				updateOutput();
+			}
+		});
+		
+		button.inject($('renderers'));
 	});
 });

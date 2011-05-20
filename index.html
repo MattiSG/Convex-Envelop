@@ -44,27 +44,12 @@
 				</pre>
 			</div>
 			<div id="center">
-				<fieldset>
-					<p><label for="input">Number of points :</label>
-					<input type="text" id="input" value="10"/></p>
-					<br />
-		
-					<label for="divide">Divide And Conquer:</label>
-					<input type="radio" name="algorithm" value="divide" id="divide" checked="true"> 
-					<label for="randomized">Randomized:</label>
-					<input type="radio" name="algorithm" value="randomized" id="randomized">
-					<br />
-					<label for="optimized">Optimized</label>
-					<input id="optimized" type="checkbox"/>
-					<br />
-					<button id="execute_button">Execute</button>
-					<button id="populate_button">Add points</button>
-					<button id="export_button">Export to JSON</button>
-					<button id="clear_button">Clear</button>
+				<fieldset id="renderers">
+				 <!-- dynamically generated -->
 				</fieldset>
 				<p>Size of the Canvas: 600x600 - <span id="nbPoints"></span></p>
 				<canvas id="canvas" width="610" height="610">
-					Votre navigateur ne supporte pas les canvas.
+					Your bowser does not support canvas canvas.
 				</canvas>
 					<div id="output">
 			</div>
