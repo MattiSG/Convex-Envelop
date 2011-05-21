@@ -1,9 +1,14 @@
 var availableRenderers = { // used to generate GUI
-	'Basic': Divider
+	'Basic': Divider,
+	'Random': Randomer
 }
 
 Divider.implement({
 	color: 'blue'
+});
+
+Randomer.implement({
+	color: 'green'
 });
 
 window.addEvent('load', function() {
