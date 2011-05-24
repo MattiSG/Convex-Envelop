@@ -16,48 +16,49 @@
 		<script language="javascript" type="text/javascript" src="algorithms/src/Divider.js"></script>
 		<script language="javascript" type="text/javascript" src="algorithms/src/Randomer.js"></script>
 		<script language="javascript" type="text/javascript" src="js/MooConvlexAdapter.js"></script>
+		<script language="javascript" type="text/javascript" src="lib/benchmark.js"></script>
+		<script language="javascript" type="text/javascript" src="js/Benchmarking.js"></script>
 	</head>
 	<body>
 		<h1>Viewer</h1>
+
+<!-- 		<applet code="nano" archive="lib/nano.jar"></applet> <!-- for benchmarking -->
+
 		<div>
 			<div id="left">
 				<h2>Json Input/Output</h2>
 				<textarea id="input_json" ></textarea>
-				<button id="parse_button">Draw from Json</button> <br />
+				<button id="repeat">Repeat until different</button> <br />
 				<div id="error"></div>
+				
 				<h2>Json Format</h2>
 				<pre>
-{
-	'points': [
-		{'x': 29, 'y':119},
-		{'x': 105, 'y':65},
-		{'x': 257, 'y':322},
-		{'x': 259, 'y':445},
-		{'x': 525, 'y':257}
-	],
-	'envelop': [
-		{'x': 105, 'y':65},
-		{'x': 525, 'y':257},
-		{'x': 259, 'y':445},
-		{'x': 29, 'y':119}
-	]
-}
+{[
+	{'x': 29, 'y':119},
+	{'x': 105, 'y':65},
+	{'x': 257, 'y':322},
+	{'x': 259, 'y':445},
+	{'x': 525, 'y':257}
+]}
 				</pre>
 			</div>
+			
 			<div id="center">
 				<fieldset id="renderers">
 				 <!-- dynamically generated -->
 				</fieldset>
 				<p>Size of the Canvas: 600x600 - <span id="nbPoints"></span></p>
 				<canvas id="canvas" width="610" height="610">
-					Your bowser does not support canvas canvas.
+					Your bowser does not support canvas.
 				</canvas>
-					<div id="output">
+				
+				<div id="output"></div>
+				
 			</div>
-			</div>
-			<div id="div_time">
-				<h3>Average time of execution</h3>
-				<p id="time"></p>
+			<div id="bench">
+				<h3>Benchmarking</h3>
+				<ol id="bench_results"></ol>
+				<button id="bench_start">Start</button>
 			</div>
 		</div>
 	</body>

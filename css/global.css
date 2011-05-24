@@ -20,7 +20,6 @@ fieldset {
 }
 
 #input_json {
-/* 	max-width: 600px; */
 	margin: 0;
 	padding: 0;
 	background-color: #f7f7ff;
@@ -157,7 +156,7 @@ body > div {
 
 #left {
 	display: table-cell;
-/* 	width: 20%; */
+	width: 20%;
 }
 
 #left textarea {
@@ -176,7 +175,23 @@ body > div {
 	padding: 0;
 }
 
-#div_time {
-	min-width: 15%;
+#bench {
+	width: 25%;
 	display: table-cell;
+}
+
+#bench_results {
+	text-align: left;
+}
+
+#bench_results .result {
+	font-weight: bold;
+}
+
+#bench.working {
+	background-color: #DDD;
+}
+
+#bench.working button {
+	opacity: 0.6;
 }

@@ -11,11 +11,12 @@ Randomer.implement({
 	color: 'green'
 });
 
+var inputPoints = [],
+	activeRenderers = {};
+
 window.addEvent('load', function() {
 	var canvas = new window.convlexEnvelop.Viewer($('canvas'));
-	var inputPoints = [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}];
-	
-	var activeRenderers = {};
+	inputPoints = [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}];
 	
 	function updateOutput() {
 		$("input_json").set('value', JSON.encode(inputPoints));
