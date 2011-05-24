@@ -122,12 +122,14 @@ var line = this.canvas.display.line({
  	 * Displays the closed path of a polygon with the array of polygon's vertices
  	 */
 	Viewer.prototype.displayPolygon = function (pointsArray, color) {
-		var k, color = color || "rgba(0,0,0,1)";
+		color = color || "rgba(0,0,0,1)";
+		var k;
 		if (pointsArray.length > 0) {
-			for (k = 0; k < pointsArray.length; k+= 1) {
+			for (k = 0; k < pointsArray.length; k += 1) {
 				this.displayLine(pointsArray[k], pointsArray[pointsArray.nextIndex(k)], color);
 			}
 		}
 	};
+		
 	return Viewer;
 })();
