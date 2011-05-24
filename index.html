@@ -22,8 +22,6 @@
 	<body>
 		<h1>Viewer</h1>
 
-<!-- 		<applet code="nano" archive="lib/nano.jar"></applet> <!-- for benchmarking -->
-
 		<div>
 			<div id="left">
 				<h2>Json Input/Output</h2>
@@ -47,7 +45,8 @@
 				<fieldset id="renderers">
 				 <!-- dynamically generated -->
 				</fieldset>
-				<p>Size of the Canvas: 600x600 - <span id="nbPoints"></span></p>
+				
+				<p>Click on renderers &uarr; to activate them — Click on the canvas &darr; to add points<span id="nbPoints"></span></p>
 				<canvas id="canvas" width="610" height="610">
 					Your bowser does not support canvas.
 				</canvas>
@@ -61,5 +60,7 @@
 				<button id="bench_start">Start</button>
 			</div>
 		</div>
+		
+ 		<applet code="nano" archive="lib/nano.jar"></applet> <!-- for benchmarking -->
 	</body>
 </html>
