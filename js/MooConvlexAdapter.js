@@ -1,16 +1,3 @@
-var availableRenderers = { // used to generate GUI
-	'Basic': Divider,
-	'Random': Randomer
-}
-
-Divider.implement({
-	color: 'blue'
-});
-
-Randomer.implement({
-	color: 'green'
-});
-
 var inputPoints = JSON.decode(sessionStorage.getItem('inputPoints')) || [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}],
 	activeRenderers = {};
 
@@ -22,7 +9,7 @@ window.addEvent('load', function() {
 		if (button)
 			button.set('active', 'active');
 			
-		var subject = new availableRenderers[name](inputPoints);
+		var subject = new AvailableRenderers.registered[name](inputPoints);
 		activeRenderers[name] = subject;
 		
 		sessionStorage.setItem('activeRenderers', Object.keys(activeRenderers));
@@ -46,7 +33,7 @@ window.addEvent('load', function() {
 	
 	var previousRenderers = sessionStorage.getItem('activeRenderers') || '';
 	
-	Object.each(availableRenderers, function(rendererType, name) {
+	Object.each(AvailableRenderers.registered, function(rendererType, name) {
 		var colorStyle = {
 			color: new rendererType([]).color
 		};
