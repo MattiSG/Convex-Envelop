@@ -31,14 +31,6 @@ fieldset {
 	margin-bottom: 1em;
 }
 
-h2, h3 {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	background: #f0f0ff;
-	border: 1px solid #D8D8DD;
-}
-
 h1 {
 	padding: 0.5em;
 	font-size: 2em;
@@ -49,6 +41,15 @@ h1 {
 	background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#F0F0FE));
 	background: -moz-linear-gradient(top,  #FFFFFF,  #b9b9b9);
 	border-bottom: 1px solid #CCC;
+}
+
+h2, h3 {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #f0f0ff;
+	border: 1px solid #D8D8DD;
+	margin-bottom: 0;
 }
 	
 pre {
@@ -160,8 +161,8 @@ body > div {
 }
 
 #left textarea {
-	width: 100%;
-	min-height: 20em;
+	width: 95%;
+	min-height: 10em;
 }
 
 #center {

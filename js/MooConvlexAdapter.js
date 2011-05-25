@@ -18,14 +18,19 @@ window.addEvent('load', function() {
 	var canvas = new window.convlexEnvelop.Viewer($('canvas'));
 	inputPoints = [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}];
 	
+	var outputs = {}; // rendererName -> textarea
+	
 	function updateOutput() {
 		$("input_json").set('value', JSON.encode(inputPoints));
 		canvas.clear();
 		canvas.displayAllPoints(inputPoints);
 		
-		Object.each(activeRenderers, function(renderer) {
+		Object.each(activeRenderers, function(renderer, name) {
 			renderer.setInput(inputPoints);
-			canvas.displayPolygon(renderer.envelope(), renderer.color);
+			var envelope = renderer.envelope();
+			
+			canvas.displayPolygon(envelope, renderer.color);
+			outputs[name].set('value', JSON.encode(envelope));
 		});
 	}
 	
@@ -59,9 +64,11 @@ window.addEvent('load', function() {
 		var shouldPush = true;
 
 		if (inputPoints.length < 100) {
+			var removalDistance = 3;
 			inputPoints.each(function(inputPoint, index) {
-				if (inputPoint.x == point.x
-					&& inputPoint.y == point.y) {
+				if (point.x == inputPoint
+					&& point.y == inputPoint.y)
+				{
 					shouldPush = false;
 					inputPoints.splice(index, 1);
 				}
@@ -75,12 +82,23 @@ window.addEvent('load', function() {
 	});
 	
 	Object.each(availableRenderers, function(rendererType, name) {
+		var colorStyle = {
+			color: new rendererType([]).color
+		};
+		
 		var button = new Element('button', {
 			text: name,
-			styles: {
-				color: new rendererType([]).color
-			}
+			styles: colorStyle
 		});
+		
+		new Element('h3', {
+			text: name,
+			styles: colorStyle
+		}).inject('output');
+		
+		outputs[name] = new Element('textarea', {
+			styles: colorStyle
+		}).inject('output');
 		
 		button.addEvent('click', function(evt) {
 			if (button.get('active') != 'active') {
@@ -98,30 +116,5 @@ window.addEvent('load', function() {
 		});
 		
 		button.inject($('renderers'));
-	});
-	
-	
-	$('repeat').addEvent('click', function() {
-		function makeLoop(renderer, name) {
-			var prevResult = renderer.envelope();
-			var looper = function() {
-				renderer.setInput(inputPoints);
-				var newResult = renderer.envelope();
-				var equal = Object.length(prevResult) == Object.length(newResult);
-				
-				if (equal) {
-					
-				}
-					
-				if (equal) {
-					console.log(name + ": same as before");
-					looper();
-				}
-				console.log(name + ": changed");
-			}
-			return looper();
-		}
-		
-		Object.each(activeRenderers, makeLoop);
 	});
 });

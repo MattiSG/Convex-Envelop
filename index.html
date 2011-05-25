@@ -20,24 +20,28 @@
 		<script language="javascript" type="text/javascript" src="js/Benchmarking.js"></script>
 	</head>
 	<body>
-		<h1>Viewer</h1>
+		<h1>Convex envelope calculator</h1>
 
-		<div>
+		<div id="main" role="main">
 			<div id="left">
-				<h2>Json Input/Output</h2>
+				<h2>Envelopes</h2>
+				<div id="output">
+					<!-- dynamically filled -->
+				</div>
+				
+				<h2>Input</h2>
 				<textarea id="input_json" ></textarea>
-				<button id="repeat">Repeat until different</button> <br />
 				<div id="error"></div>
 				
-				<h2>Json Format</h2>
+				<h3>Format: JSON</h3>
 				<pre>
-{[
-	{'x': 29, 'y':119},
-	{'x': 105, 'y':65},
-	{'x': 257, 'y':322},
-	{'x': 259, 'y':445},
-	{'x': 525, 'y':257}
-]}
+[
+	{"x": 29, "y":119},
+	{"x": 105, "y":65},
+	{"x": 257, "y":322},
+	{"x": 259, "y":445},
+	{"x": 525, "y":257}
+]
 				</pre>
 			</div>
 			
@@ -51,9 +55,9 @@
 					Your bowser does not support canvas.
 				</canvas>
 				
-				<div id="output"></div>
-				
+				<div id="output"></div>				
 			</div>
+			
 			<div id="bench">
 				<h3>Benchmarking</h3>
 				<ol id="bench_results"></ol>
