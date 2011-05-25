@@ -169,6 +169,8 @@ body > div {
 	display: table-cell;
 	max-width: 610px;
 	padding: 1em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 
 #center fieldset {
@@ -179,6 +181,11 @@ body > div {
 #bench {
 	width: 25%;
 	display: table-cell;
+}
+
+#bench h3, #bench button {
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 
 #bench_results {
