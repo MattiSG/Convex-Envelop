@@ -44,7 +44,7 @@ window.addEvent('load', function() {
 
 	// init renderers
 	
-	var previousRenderers = sessionStorage.getItem('activeRenderers');
+	var previousRenderers = sessionStorage.getItem('activeRenderers') || '';
 	
 	Object.each(availableRenderers, function(rendererType, name) {
 		var colorStyle = {
