@@ -147,4 +147,9 @@ window.addEvent('load', function() {
 		updateOutput();
 	});
 	
+	
+	$('clear').addEvent('click', function() {
+		inputPoints = [];
+		updateOutput();
+	});
 });
