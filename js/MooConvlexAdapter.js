@@ -11,17 +11,83 @@ Randomer.implement({
 	color: 'green'
 });
 
-var inputPoints = [],
+var inputPoints = JSON.decode(sessionStorage.getItem('inputPoints')) || [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}],
 	activeRenderers = {};
 
 window.addEvent('load', function() {
 	var canvas = new window.convlexEnvelop.Viewer($('canvas'));
-	inputPoints = [{"x":344,"y":326},{"x":195,"y":354},{"x":210,"y":236},{"x":411,"y":375},{"x":462,"y":212}];
-	
 	var outputs = {}; // rendererName -> textarea
+		
+	function activateRenderer(name, button) {
+		if (button)
+			button.set('active', 'active');
+			
+		var subject = new availableRenderers[name](inputPoints);
+		activeRenderers[name] = subject;
+		
+		sessionStorage.setItem('activeRenderers', Object.keys(activeRenderers));
+		
+		updateOutput();
+	}
+	
+	function deactivateRenderer(name, button) {
+		if (button)
+			button.set('active', '');
+		
+		delete activeRenderers[name];
+		
+		sessionStorage.setItem('activeRenderers', Object.keys(activeRenderers));
+		
+		updateOutput();	
+	}
+
+
+	// init renderers
+	
+	var previousRenderers = sessionStorage.getItem('activeRenderers');
+	
+	Object.each(availableRenderers, function(rendererType, name) {
+		var colorStyle = {
+			color: new rendererType([]).color
+		};
+		
+		var button = new Element('button', {
+			text: name,
+			styles: colorStyle
+		});
+		
+		new Element('h3', {
+			text: name,
+			styles: colorStyle
+		}).inject('output');
+		
+		outputs[name] = new Element('textarea', {
+			readonly: true,
+			styles: colorStyle
+		}).inject('output');
+		
+		button.addEvent('click', function(evt) {
+			if (button.get('active') != 'active')
+				activateRenderer(name, button);
+			else
+				deactivateRenderer(name, button);
+		});
+		
+		button.inject($('renderers'));
+		
+		if (previousRenderers.contains(name))
+			activateRenderer(name, button);
+	});
+	
+	delete previousRenderers;
+	
 	
 	function updateOutput() {
-		$("input_json").set('value', JSON.encode(inputPoints));
+		var encodedInput = JSON.encode(inputPoints);
+		
+		$("input_json").set('value', encodedInput);
+		sessionStorage.setItem('inputPoints', encodedInput);
+		
 		canvas.clear();
 		canvas.displayAllPoints(inputPoints);
 		
@@ -81,41 +147,4 @@ window.addEvent('load', function() {
 		updateOutput();
 	});
 	
-	Object.each(availableRenderers, function(rendererType, name) {
-		var colorStyle = {
-			color: new rendererType([]).color
-		};
-		
-		var button = new Element('button', {
-			text: name,
-			styles: colorStyle
-		});
-		
-		new Element('h3', {
-			text: name,
-			styles: colorStyle
-		}).inject('output');
-		
-		outputs[name] = new Element('textarea', {
-			readonly: true,
-			styles: colorStyle
-		}).inject('output');
-		
-		button.addEvent('click', function(evt) {
-			if (button.get('active') != 'active') {
-				button.set('active', 'active');
-				var subject = new rendererType(inputPoints);
-				activeRenderers[name] = subject;
-				
-				updateOutput();
-			} else {
-				button.set('active', '');
-				delete activeRenderers[name];
-				
-				updateOutput();
-			}
-		});
-		
-		button.inject($('renderers'));
-	});
 });
