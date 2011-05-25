@@ -99,4 +99,29 @@ window.addEvent('load', function() {
 		
 		button.inject($('renderers'));
 	});
+	
+	
+	$('repeat').addEvent('click', function() {
+		function makeLoop(renderer, name) {
+			var prevResult = renderer.envelope();
+			var looper = function() {
+				renderer.setInput(inputPoints);
+				var newResult = renderer.envelope();
+				var equal = Object.length(prevResult) == Object.length(newResult);
+				
+				if (equal) {
+					
+				}
+					
+				if (equal) {
+					console.log(name + ": same as before");
+					looper();
+				}
+				console.log(name + ": changed");
+			}
+			return looper();
+		}
+		
+		Object.each(activeRenderers, makeLoop);
+	});
 });
