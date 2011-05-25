@@ -72,8 +72,10 @@ window.addEvent('load', function() {
 	function updateOutput() {
 		var encodedInput = JSON.encode(inputPoints);
 		
-		$("input_json").set('value', encodedInput);
+		$('input_json').set('value', encodedInput);
 		sessionStorage.setItem('inputPoints', encodedInput);
+		
+		$('points_count').set('text', inputPoints.length);
 		
 		canvas.clear();
 		canvas.displayAllPoints(inputPoints);
@@ -133,7 +135,6 @@ window.addEvent('load', function() {
 			
 		updateOutput();
 	});
-	
 	
 	$('clear').addEvent('click', function() {
 		inputPoints = [];
