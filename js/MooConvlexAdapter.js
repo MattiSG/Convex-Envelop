@@ -97,6 +97,7 @@ window.addEvent('load', function() {
 		}).inject('output');
 		
 		outputs[name] = new Element('textarea', {
+			readonly: true,
 			styles: colorStyle
 		}).inject('output');
 		
